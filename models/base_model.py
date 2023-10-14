@@ -17,8 +17,10 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.strptime(value,
-                        '%Y-%m-%dT%H:%M:%S.%f'))
+                    date_str = value
+                    date_format = '%Y-%m-%dT%H:%M:%S.%f'
+                    date_obj = datetime.strptime(date_str, date_format)
+                    setattr(self, key, date_obj)
                 else:
                     setattr(self, key, value)
         else:
@@ -52,10 +54,12 @@ class BaseModel:
             'my_number': (type(self.my_number), self.my_number),
             'name': (type(self.name), self.name),
             '__class__': (type(self).__name__, self.__class__.__name__),
-            'updated_at': (type(self.updated_at).__name__,
-                self.updated_at.isoformat()),
+            updated_at_type = type(self.updated_at).__name
+            updated_at_iso = self.updated_at.isoformat()
+            'updated_at': (updated_at_type, updated_at_iso),
             'id': (type(self.id).__name__, self.id),
-            'created_at': (type(self.created_at).__name__,
-                self.created_at.isoformat())
+            created_at_type = type(self.created_at).__name
+            created_at_iso = self.created_at.isoformat()
+            'created_at': (created_at_type, created_at_iso)
         }
         return obj_dict
