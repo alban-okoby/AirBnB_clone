@@ -1,5 +1,7 @@
 ## Learning Objectives
 
+<img src="images/hbnb_step1.png" />
+
 ### General
 - What is HTML
 - How to create an HTML page
